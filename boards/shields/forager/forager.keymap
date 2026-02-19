@@ -1,0 +1,301 @@
+#include QMK_KEYBOARD_H
+
+#ifdef MOUSEKEY_ENABLE
+#    undef MOUSEKEY_ENABLE
+#endif
+
+/* Base layer 0 layout uses home row mods. See the following guide for details:
+ * https://precondition.github.io/home-row-mods
+ */
+
+enum custom_keycodes {
+    BACKSPACE_DEL = SAFE_RANGE,
+    COMMA_LT,
+    DOT_GT,
+    SLASH_QUESTION,
+    SEMIC_COLON,
+    ALT_1,
+    ALT_2,
+    ALT_3,
+    ALT_4,
+    ALT_TAB,
+    SHIFT_INS,
+    ALT_LEFT,
+    ALT_RIGHT,
+    ALT_SLASH,
+    PAREN,
+    BRACKET,
+    CURLY,
+    CEDILLA,
+    COLEMAK,
+    SQUOTE,
+    DQUOTE,
+    // Other keycodes...
+};
+
+#define HOLD_TIMEOUT 500                                // Adjust hold time in milliseconds
+#define MOD_MASK_HOLD = MOD_MASK_SHIFT | MOD_MASK_CTRL; // 0x01 | 0x02 = 0x03
+// #define COMBO_END 0x00
+
+enum layer_names { _COLEMAK = 0, _NUM, _NAV, _SYM, _FUN };
+
+// Mouse key speed and acceleration.
+/*
+#undef MOUSEKEY_DELAY
+#define MOUSEKEY_DELAY          0
+#undef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL       16
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY    0
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED      6
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX    64
+*/
+
+#define GUI_A MT(MOD_LGUI, KC_A)
+#define ALT_R MT(MOD_LALT, KC_R)
+#define CTL_S MT(MOD_LCTL, KC_S)
+#define SHT_T MT(MOD_LSFT, KC_T)
+
+// RIGHT HAND HOME ROW MODS COLEMAK ├────────────────┐
+
+#define SHT_N MT(MOD_RSFT, KC_N)
+#define CTL_E MT(MOD_LCTL, KC_E)
+#define ALT_I MT(MOD_LALT, KC_I)
+#define GUI_O MT(MOD_LGUI, KC_O)
+
+#define LOWER LT(_LOWER, KC_TAB)
+#define RAISE LT(_RAISE, KC_ESC)
+#define ADJUST MO(_ADJUST)
+
+const uint16_t PROGMEM workstation_combo[] = {KC_W, KC_S, COMBO_END};
+
+enum combo_events {
+   WS_COMBO
+};
+
+combo_t key_combos[] = {
+    [WS_COMBO] =COMBO_ACTION(workstation_combo)
+};
+
+void alt_1_function(void) {
+    register_code(KC_LALT);
+    tap_code16(KC_1);
+    unregister_code(KC_LALT);
+}
+
+void alt_2_function(void) {
+    register_code(KC_LALT);
+    tap_code16(KC_2);
+    unregister_code(KC_LALT);
+}
+void alt_3_function(void) {
+    register_code(KC_LALT);
+    tap_code16(KC_3);
+    unregister_code(KC_LALT);
+}
+void alt_4_function(void) {
+    register_code(KC_LALT);
+    tap_code16(KC_4);
+    unregister_code(KC_LALT);
+}
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // colemak-dh
+    [_COLEMAK] = LAYOUT_split_3x5_2(
+        KC_Q,  KC_W,  KC_F,  KC_P,  KC_B, KC_J, KC_L,  KC_U,    KC_Y,   KC_BSPC,
+        GUI_A, ALT_R, CTL_S, SHT_T, KC_G, KC_M, SHT_N, CTL_E,   ALT_I,  GUI_O,
+        KC_Z,  KC_X,  KC_C,  KC_D,  KC_V, KC_K, KC_H,  KC_COMM, KC_DOT, KC_SLSH,
+        LT(_NUM, KC_DEL), LT(_NAV, KC_SPACE), LT(_SYM, KC_ENT), LT(_FUN, KC_TAB)
+    ),
+    // number layer
+    [_NUM] = LAYOUT_split_3x5_2(
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7, KC_8, KC_9, KC_0,
+        //                                  *        +                          =
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ASTR, KC_PLUS, KC_4, KC_5, KC_6, KC_EQL,
+        //                .        ,        /        -
+        KC_TRNS, KC_TRNS, KC_DOT,  KC_COMM, KC_SLSH, KC_MINS, KC_1, KC_2, KC_3, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    // nav layer
+    [_NAV] = LAYOUT_split_3x5_2(
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        //printscr        caps tog esc      alt /      alt tab     
+        KC_PSCR, KC_TRNS, CW_TOGG, KC_ESC,  ALT_SLASH, ALT_TAB,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+        //                                  ins        shift ins
+        ALT_1,   ALT_2,   ALT_3,  ALT_4,    KC_INS,    SHIFT_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    // symbol layer
+    [_SYM] = LAYOUT_split_3x5_2(
+        //!      @        #        $        %          ^        &        *        `         ~
+        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,   KC_CIRC, KC_AMPR, KC_ASTR, KC_GRAVE, KC_TILDE,
+        //       {        [        (        alt slash           '        :        ;        "
+        KC_TRNS, KC_LCBR, KC_LBRC, KC_LPRN, ALT_SLASH, KC_TRNS, KC_QUOT, KC_COLN, KC_SCLN, KC_DQUO,
+        //       }        ]        )                            _        |        \        ?
+        KC_TRNS, KC_RCBR, KC_RBRC, KC_RPRN, KC_TRNS,   KC_TRNS, KC_UNDS, KC_PIPE, KC_BSLS, KC_QUES,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+    // function layer
+    [_FUN] = LAYOUT_split_3x5_2(
+        KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_TRNS,   KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,    QK_BOOT,
+        //                             alt slash
+        KC_F5, KC_F6,  KC_F7,  KC_F8,  ALT_SLASH, KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,    CEDILLA,
+        //                                        ctrl-f      ctrl-=        ctrl-c      ctrl-v      ctrl-x
+        KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS,   LCTL(KC_F), LCTL(KC_EQL), LCTL(KC_C), LCTL(KC_V), LCTL(KC_X),
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    )
+};
+
+// clang-format on
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case COMMA_LT:
+            if (record->tap.count > 1) {
+                SEND_STRING("<");
+            } else {
+                tap_code(',');
+            }
+            break;
+
+        case SQUOTE:
+            if (record->tap.count > 1) {
+                SEND_STRING("'");
+            } else {
+                tap_code(KC_QUOTE);
+                tap_code(KC_SPACE);
+            }
+            break;
+        case DQUOTE:
+            if (record->tap.count > 1) {
+                tap_code('"');
+            } else {
+                tap_code('"');
+                tap_code(KC_SPACE);
+            }
+            break;
+
+        case DOT_GT:
+            if (record->tap.count > 1) {
+                SEND_STRING(">");
+            } else {
+                tap_code('.');
+            }
+            break;
+
+        case SLASH_QUESTION:
+            if (record->tap.count > 1) {
+                SEND_STRING("?");
+            } else {
+                tap_code('/');
+            }
+            break;
+
+        case SEMIC_COLON:
+            if (record->tap.count > 1) {
+                SEND_STRING(":");
+            } else {
+                tap_code(';');
+            }
+            break;
+
+        case ALT_TAB:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_TAB));
+            }
+            break;
+
+        case ALT_1:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_1));
+            }
+            break;
+        case ALT_2:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_2));
+            }
+            break;
+        case ALT_3:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_3));
+            }
+            break;
+        case ALT_4:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_4));
+            }
+            break;
+
+        case SHIFT_INS:
+            if (record->event.pressed) {
+                tap_code16(LSFT(KC_INS));
+            }
+            break;
+
+        case ALT_LEFT:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_LEFT));
+            }
+            break;
+
+        case ALT_RIGHT:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_RIGHT));
+            }
+            break;
+
+        case ALT_SLASH:
+            if (record->event.pressed) {
+                tap_code16(LALT(KC_SLASH));
+            }
+            break;
+
+        case PAREN:
+            if (record->event.pressed) {
+                SEND_STRING("()");
+                tap_code16(KC_LEFT);
+            }
+            break;
+        case BRACKET:
+            if (record->event.pressed) {
+                SEND_STRING("[]");
+                tap_code16(KC_LEFT);
+            }
+            break;
+        case CURLY:
+            if (record->event.pressed) {
+                SEND_STRING("{}");
+                tap_code16(KC_LEFT);
+            }
+            break;
+        case CEDILLA:
+            if (record->event.pressed) {
+                tap_code16(ALGR(KC_COMMA));
+            }
+            break;
+
+            // ┌─────────────────────────────────────────────────┐
+            // │ l a y e r                                       │
+            // └─────────────────────────────────────────────────┘
+
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
+            }
+            return false;
+    }
+
+    return true;
+}
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case WS_COMBO:
+      if (pressed) {
+        SEND_STRING("workstation ");
+      }
+      break;
+   }
+}
