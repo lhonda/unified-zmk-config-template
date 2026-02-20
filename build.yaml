@@ -20,9 +20,7 @@
 ---
 include:
   - board: xiao_ble
-    shield: forager_left rgbled_adapter
+    shield: forager_left
     snippet: studio-rpc-usb-uart
   - board: xiao_ble
-    shield: forager_right rgbled_adapter
-  - board: xiao_ble//zmk
-    shield: hummingbird rgbled_adapter
+    shield: forager_right
