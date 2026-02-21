@@ -1,0 +1,7 @@
+if SHIELD_SCOTTO63
+
+# Name must be less than 16 characters long!
+config ZMK_SCOTTO63
+    default "scotto63"
+
+endif
