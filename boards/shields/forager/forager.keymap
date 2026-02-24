@@ -1,301 +1,121 @@
-#include QMK_KEYBOARD_H
-
-#ifdef MOUSEKEY_ENABLE
-#    undef MOUSEKEY_ENABLE
-#endif
-
-/* Base layer 0 layout uses home row mods. See the following guide for details:
- * https://precondition.github.io/home-row-mods
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-enum custom_keycodes {
-    BACKSPACE_DEL = SAFE_RANGE,
-    COMMA_LT,
-    DOT_GT,
-    SLASH_QUESTION,
-    SEMIC_COLON,
-    ALT_1,
-    ALT_2,
-    ALT_3,
-    ALT_4,
-    ALT_TAB,
-    SHIFT_INS,
-    ALT_LEFT,
-    ALT_RIGHT,
-    ALT_SLASH,
-    PAREN,
-    BRACKET,
-    CURLY,
-    CEDILLA,
-    COLEMAK,
-    SQUOTE,
-    DQUOTE,
-    // Other keycodes...
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+
+// Layer definitions
+#define _COLEMAK 0
+#define _NUM     1
+#define _NAV     2
+#define _SYM     3
+#define _FUN     4
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+        
+        combo_workstation {
+            timeout-ms = <50>;
+            key-positions = <1 12>;  // W and S positions
+            bindings = <&macro_workstation>;
+        };
+    };
+
+    macros {
+        macro_workstation: macro_workstation {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp W &kp O &kp R &kp K &kp S &kp T &kp A &kp T &kp I &kp O &kp N &kp SPACE>;
+        };
+
+        alt_slash: alt_slash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>
+                     , <&macro_tap &kp SLASH>
+                     , <&macro_release &kp LALT>;
+        };
+
+        cedilla: cedilla {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp RALT>
+                     , <&macro_tap &kp COMMA>
+                     , <&macro_release &kp RALT>;
+        };
+    };
+
+    behaviors {
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+
+        lt_long: layer_tap_long {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        colemak_layer {
+            bindings = <
+        &kp Q       &kp W       &kp F        &kp P        &kp B          &kp J       &kp L        &kp U        &kp Y        &kp BSPC
+        &hm LGUI A  &hm LALT R  &hm LCTRL S  &hm LSHFT T  &kp G          &kp M       &hm RSHFT N  &hm LCTRL E  &hm LALT I   &hm LGUI O
+        &kp Z       &kp X       &kp C        &kp D        &kp V          &kp K       &kp H        &kp COMMA    &kp DOT      &kp SLASH
+                                             &lt_long _NUM DEL  &lt_long _NAV SPACE    &lt_long _SYM RET  &lt_long _FUN TAB
+            >;
+        };
+
+        num_layer {
+            bindings = <
+        &kp N1    &kp N2    &kp N3     &kp N4     &kp N5       &kp N6      &kp N7    &kp N8    &kp N9    &kp N0
+        &trans    &trans    &trans     &trans     &kp STAR     &kp PLUS    &kp N4    &kp N5    &kp N6    &kp EQUAL
+        &trans    &trans    &kp DOT    &kp COMMA  &kp SLASH    &kp MINUS   &kp N1    &kp N2    &kp N3    &trans
+                                       &trans     &trans       &trans      &trans
+            >;
+        };
+
+        nav_layer {
+            bindings = <
+        &trans       &trans    &trans      &trans     &trans        &trans         &trans     &trans      &trans      &trans
+        &kp PSCRN    &trans    &caps_word  &kp ESC    &alt_slash    &kp LA(TAB)    &kp LEFT   &kp DOWN    &kp UP      &kp RIGHT
+        &kp LA(N1)   &kp LA(N2) &kp LA(N3) &kp LA(N4) &kp INS       &kp LS(INS)    &kp HOME   &kp PG_DN   &kp PG_UP   &kp END
+                                           &trans     &trans        &trans         &trans
+            >;
+        };
+
+        sym_layer {
+            bindings = <
+        &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT     &kp CARET   &kp AMPS   &kp STAR   &kp GRAVE   &kp TILDE
+        &trans     &kp LCBR   &kp LBKT   &kp LPAR   &alt_slash    &trans      &kp SQT    &kp COLON  &kp SEMI    &kp DQT
+        &trans     &kp RCBR   &kp RBKT   &kp RPAR   &trans        &trans      &kp UNDER  &kp PIPE   &kp BSLH    &kp QMARK
+                                         &trans     &trans        &trans      &trans
+            >;
+        };
+
+        fun_layer {
+            bindings = <
+        &kp F1    &kp F2    &kp F3    &kp F4    &trans        &trans          &trans           &trans        &trans        &bootloader
+        &kp F5    &kp F6    &kp F7    &kp F8    &alt_slash    &trans          &trans           &trans        &trans        &cedilla
+        &kp F9    &kp F10   &kp F11   &kp F12   &trans        &kp LC(F)       &kp LC(EQUAL)    &kp LC(C)     &kp LC(V)     &kp LC(X)
+                                      &trans    &trans        &trans          &trans
+            >;
+        };
+    };
 };
-
-#define HOLD_TIMEOUT 500                                // Adjust hold time in milliseconds
-#define MOD_MASK_HOLD = MOD_MASK_SHIFT | MOD_MASK_CTRL; // 0x01 | 0x02 = 0x03
-// #define COMBO_END 0x00
-
-enum layer_names { _COLEMAK = 0, _NUM, _NAV, _SYM, _FUN };
-
-// Mouse key speed and acceleration.
-/*
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY          0
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL       16
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY    0
-#undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED      6
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX    64
-*/
-
-#define GUI_A MT(MOD_LGUI, KC_A)
-#define ALT_R MT(MOD_LALT, KC_R)
-#define CTL_S MT(MOD_LCTL, KC_S)
-#define SHT_T MT(MOD_LSFT, KC_T)
-
-// RIGHT HAND HOME ROW MODS COLEMAK ├────────────────┐
-
-#define SHT_N MT(MOD_RSFT, KC_N)
-#define CTL_E MT(MOD_LCTL, KC_E)
-#define ALT_I MT(MOD_LALT, KC_I)
-#define GUI_O MT(MOD_LGUI, KC_O)
-
-#define LOWER LT(_LOWER, KC_TAB)
-#define RAISE LT(_RAISE, KC_ESC)
-#define ADJUST MO(_ADJUST)
-
-const uint16_t PROGMEM workstation_combo[] = {KC_W, KC_S, COMBO_END};
-
-enum combo_events {
-   WS_COMBO
-};
-
-combo_t key_combos[] = {
-    [WS_COMBO] =COMBO_ACTION(workstation_combo)
-};
-
-void alt_1_function(void) {
-    register_code(KC_LALT);
-    tap_code16(KC_1);
-    unregister_code(KC_LALT);
-}
-
-void alt_2_function(void) {
-    register_code(KC_LALT);
-    tap_code16(KC_2);
-    unregister_code(KC_LALT);
-}
-void alt_3_function(void) {
-    register_code(KC_LALT);
-    tap_code16(KC_3);
-    unregister_code(KC_LALT);
-}
-void alt_4_function(void) {
-    register_code(KC_LALT);
-    tap_code16(KC_4);
-    unregister_code(KC_LALT);
-}
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // colemak-dh
-    [_COLEMAK] = LAYOUT_split_3x5_2(
-        KC_Q,  KC_W,  KC_F,  KC_P,  KC_B, KC_J, KC_L,  KC_U,    KC_Y,   KC_BSPC,
-        GUI_A, ALT_R, CTL_S, SHT_T, KC_G, KC_M, SHT_N, CTL_E,   ALT_I,  GUI_O,
-        KC_Z,  KC_X,  KC_C,  KC_D,  KC_V, KC_K, KC_H,  KC_COMM, KC_DOT, KC_SLSH,
-        LT(_NUM, KC_DEL), LT(_NAV, KC_SPACE), LT(_SYM, KC_ENT), LT(_FUN, KC_TAB)
-    ),
-    // number layer
-    [_NUM] = LAYOUT_split_3x5_2(
-        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7, KC_8, KC_9, KC_0,
-        //                                  *        +                          =
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_ASTR, KC_PLUS, KC_4, KC_5, KC_6, KC_EQL,
-        //                .        ,        /        -
-        KC_TRNS, KC_TRNS, KC_DOT,  KC_COMM, KC_SLSH, KC_MINS, KC_1, KC_2, KC_3, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    // nav layer
-    [_NAV] = LAYOUT_split_3x5_2(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        //printscr        caps tog esc      alt /      alt tab     
-        KC_PSCR, KC_TRNS, CW_TOGG, KC_ESC,  ALT_SLASH, ALT_TAB,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-        //                                  ins        shift ins
-        ALT_1,   ALT_2,   ALT_3,  ALT_4,    KC_INS,    SHIFT_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    // symbol layer
-    [_SYM] = LAYOUT_split_3x5_2(
-        //!      @        #        $        %          ^        &        *        `         ~
-        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,   KC_CIRC, KC_AMPR, KC_ASTR, KC_GRAVE, KC_TILDE,
-        //       {        [        (        alt slash           '        :        ;        "
-        KC_TRNS, KC_LCBR, KC_LBRC, KC_LPRN, ALT_SLASH, KC_TRNS, KC_QUOT, KC_COLN, KC_SCLN, KC_DQUO,
-        //       }        ]        )                            _        |        \        ?
-        KC_TRNS, KC_RCBR, KC_RBRC, KC_RPRN, KC_TRNS,   KC_TRNS, KC_UNDS, KC_PIPE, KC_BSLS, KC_QUES,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    // function layer
-    [_FUN] = LAYOUT_split_3x5_2(
-        KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_TRNS,   KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,    QK_BOOT,
-        //                             alt slash
-        KC_F5, KC_F6,  KC_F7,  KC_F8,  ALT_SLASH, KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,    CEDILLA,
-        //                                        ctrl-f      ctrl-=        ctrl-c      ctrl-v      ctrl-x
-        KC_F9, KC_F10, KC_F11, KC_F12, KC_TRNS,   LCTL(KC_F), LCTL(KC_EQL), LCTL(KC_C), LCTL(KC_V), LCTL(KC_X),
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    )
-};
-
-// clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case COMMA_LT:
-            if (record->tap.count > 1) {
-                SEND_STRING("<");
-            } else {
-                tap_code(',');
-            }
-            break;
-
-        case SQUOTE:
-            if (record->tap.count > 1) {
-                SEND_STRING("'");
-            } else {
-                tap_code(KC_QUOTE);
-                tap_code(KC_SPACE);
-            }
-            break;
-        case DQUOTE:
-            if (record->tap.count > 1) {
-                tap_code('"');
-            } else {
-                tap_code('"');
-                tap_code(KC_SPACE);
-            }
-            break;
-
-        case DOT_GT:
-            if (record->tap.count > 1) {
-                SEND_STRING(">");
-            } else {
-                tap_code('.');
-            }
-            break;
-
-        case SLASH_QUESTION:
-            if (record->tap.count > 1) {
-                SEND_STRING("?");
-            } else {
-                tap_code('/');
-            }
-            break;
-
-        case SEMIC_COLON:
-            if (record->tap.count > 1) {
-                SEND_STRING(":");
-            } else {
-                tap_code(';');
-            }
-            break;
-
-        case ALT_TAB:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_TAB));
-            }
-            break;
-
-        case ALT_1:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_1));
-            }
-            break;
-        case ALT_2:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_2));
-            }
-            break;
-        case ALT_3:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_3));
-            }
-            break;
-        case ALT_4:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_4));
-            }
-            break;
-
-        case SHIFT_INS:
-            if (record->event.pressed) {
-                tap_code16(LSFT(KC_INS));
-            }
-            break;
-
-        case ALT_LEFT:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_LEFT));
-            }
-            break;
-
-        case ALT_RIGHT:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_RIGHT));
-            }
-            break;
-
-        case ALT_SLASH:
-            if (record->event.pressed) {
-                tap_code16(LALT(KC_SLASH));
-            }
-            break;
-
-        case PAREN:
-            if (record->event.pressed) {
-                SEND_STRING("()");
-                tap_code16(KC_LEFT);
-            }
-            break;
-        case BRACKET:
-            if (record->event.pressed) {
-                SEND_STRING("[]");
-                tap_code16(KC_LEFT);
-            }
-            break;
-        case CURLY:
-            if (record->event.pressed) {
-                SEND_STRING("{}");
-                tap_code16(KC_LEFT);
-            }
-            break;
-        case CEDILLA:
-            if (record->event.pressed) {
-                tap_code16(ALGR(KC_COMMA));
-            }
-            break;
-
-            // ┌─────────────────────────────────────────────────┐
-            // │ l a y e r                                       │
-            // └─────────────────────────────────────────────────┘
-
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-    }
-
-    return true;
-}
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case WS_COMBO:
-      if (pressed) {
-        SEND_STRING("workstation ");
-      }
-      break;
-   }
-}
