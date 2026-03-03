@@ -103,8 +103,8 @@
         sym_layer {
             bindings = <
         &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT     &kp CARET   &kp AMPS   &kp STAR   &kp GRAVE   &kp TILDE
-        &trans     &kp LCBR   &kp LBKT   &kp LPAR   &alt_slash    &trans      &kp SQT    &kp COLON  &kp SEMI    &kp DQT
-        &trans     &kp RCBR   &kp RBKT   &kp RPAR   &trans        &trans      &kp UNDER  &kp PIPE   &kp BSLH    &kp QMARK
+        &trans     &kp LBRC   &kp LBKT   &kp LPAR   &alt_slash    &trans      &kp SQT    &kp COLON  &kp SEMI    &kp DQT
+        &trans     &kp RBRC   &kp RBKT   &kp RPAR   &trans        &trans      &kp UNDER  &kp PIPE   &kp BSLH    &kp QMARK
                                          &trans     &trans        &trans      &trans
             >;
         };
