@@ -12,9 +12,10 @@
 
 // Layer definitions
 #define _COLEMAK 0
-#define _LOWER   1
-#define _RAISE   2
-#define _ADJUST  3
+#define _NUM     1
+#define _NAV     2
+#define _SYMBOL  3
+#define _FUN     4
 
 / {
     macros {
@@ -22,7 +23,7 @@
         snap: snap {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(LG(LC(N4)))>;  // Mac default, adjust in keymap for Windows
+            bindings = <&kp LS(LG(LC(N4)))>; 
         };
     };
 
@@ -54,25 +55,25 @@
         // Layer 0: Colemak-DH
         colemak_layer {
             bindings = <
-                         &kp Q       &kp W       &kp F        &kp P        &kp B          &kp J       &kp L        &kp U        &kp Y        &kp SEMI
-                         &hm LGUI A  &hm LALT R  &hm LCTRL S  &hm LSHFT T  &kp G          &kp M       &hm RSHFT N  &hm LCTRL E  &hm LALT I   &hm LGUI O
-            &kp Q        &kp Z       &kp X       &kp C        &kp D        &kp V          &kp K       &kp H        &kp COMMA    &kp DOT      &kp SLASH    &kp SEMI
-                                                 &lt_long _LOWER DEL  &lt_long _LOWER SPACE    &lt_long _RAISE RET  &lt_long _ADJUST TAB
+                         &kp Q       &kp W       &kp F                &kp P                    &kp B                &kp J       &kp L        &kp U        &kp Y        &kp SEMI
+                         &hm LGUI A  &hm LALT R  &hm LCTRL S          &hm LSHFT T              &kp G                &kp M       &hm RSHFT N  &hm LCTRL E  &hm LALT I   &hm LGUI O
+            &kp Q        &kp Z       &kp X       &kp C                &kp D                    &kp V                &kp K       &kp H        &kp COMMA    &kp DOT      &kp SLASH    &kp SEMI
+                                                 &lt_long _NUM DEL    &lt_long _NAV  SPACE     &lt_long _SYMBOL RET &lt_long _FUN TAB
             >;
         };
 
-        // Layer 1: Lower (Numbers & Navigation)
-        lower_layer {
+        // Layer 1: number (Numbers & Navigation)
+        num_layer {
             bindings = <
-                         &kp CAPS    &kp KP_NUM  &kp UP      &kp EQUAL    &kp LBRC       &kp RBRC    &kp N7       &kp N8       &kp N9       &kp PLUS
-                         &kp SQT     &kp LEFT    &kp DOWN    &kp RIGHT    &kp LBKT       &kp RBKT    &kp N4       &kp N5       &kp N6       &kp MINUS
-            &snap        &kp END     &kp PG_UP   &kp LC(S)   &kp PG_DN    &kp LPAR       &kp RPAR    &kp N1       &kp N2       &kp N3       &kp STAR     &trans
-                                                 &trans      &trans       &trans         &mo _ADJUST &kp N0
+                         &kp N1      &kp N2      &kp N3      &kp N4       &kp N5         &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
+                         &trans      &trans      &trans      &trans       &kp STAR       &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
+            &snap        &trans      &trans      &trans      &trans       &kp SLASH      &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
+                                                 &trans      &trans       &trans         &trans      &trans
             >;
         };
 
-        // Layer 2: Raise (Symbols & Special Characters)
-        raise_layer {
+        // Layer 2: symbol (Symbols & Special Characters)
+        symbol_layer {
             bindings = <
                          &kp EXCL       &kp AT         &kp HASH       &kp DLLR       &kp PRCNT      &kp CARET    &kp AMPS     &kp RA(U)    &kp RA(N3)   &kp BSLH
                          &kp RA(A)      &kp RA(F)      &kp RA(S)      &kp RA(G)      &none          &none        &kp LS(RA(N4)) &kp RA(N5) &kp RA(N4)   &kp RA(O)
@@ -81,8 +82,8 @@
             >;
         };
 
-        // Layer 3: Adjust (Functions, System)
-        adjust_layer {
+        // Layer 3: functions (Functions, System)
+        fun_layer {
             bindings = <
                          &bootloader  &none       &none       &none       &none          &none       &kp F7       &kp F8       &kp F9       &kp F12
                          &none        &none       &none       &none       &none          &none       &kp F4       &kp F5       &kp F6       &kp F11
