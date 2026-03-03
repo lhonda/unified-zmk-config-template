@@ -58,7 +58,7 @@
                          &kp Q       &kp W       &kp F                &kp P                    &kp B                &kp J       &kp L        &kp U        &kp Y        &kp SEMI
                          &hm LGUI A  &hm LALT R  &hm LCTRL S          &hm LSHFT T              &kp G                &kp M       &hm RSHFT N  &hm LCTRL E  &hm LALT I   &hm LGUI O
             &kp Q        &kp Z       &kp X       &kp C                &kp D                    &kp V                &kp K       &kp H        &kp COMMA    &kp DOT      &kp SLASH    &kp SEMI
-                                                 &lt_long _NUM DEL    &lt_long _NAV  SPACE     &lt_long _SYMBOL RET &lt_long _FUN TAB
+                                     &trans      &lt_long _NUM DEL    &lt_long _NAV  SPACE     &lt_long _SYMBOL RET &lt_long _FUN TAB        &trans
             >;
         };
 
@@ -68,7 +68,16 @@
                          &kp N1      &kp N2      &kp N3      &kp N4       &kp N5         &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
                          &trans      &trans      &trans      &trans       &kp STAR       &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
             &snap        &trans      &trans      &trans      &trans       &kp SLASH      &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
-                                                 &trans      &trans       &trans         &trans      &trans
+                                                 &trans      &trans       &trans         &trans      &trans       &trans
+            >;
+        };
+        
+        nav_layer {
+            bindings = <
+                         &trans       &trans     &trans      &trans     &trans        &trans         &trans     &trans      &trans      &trans
+                         &kp PSCRN    &trans     &caps_word  &kp ESC    &alt_slash    &kp LA(TAB)    &kp LEFT   &kp DOWN    &kp UP      &kp RIGHT
+                         &kp LA(N1)   &kp LA(N2) &kp LA(N3)  &kp LA(N4) &kp INS       &kp LS(INS)    &kp HOME   &kp PG_DN   &kp PG_UP   &kp END
+                                                 &trans      &trans     &trans        &trans         &trans     &trans
             >;
         };
 
@@ -78,7 +87,7 @@
                          &kp EXCL       &kp AT         &kp HASH       &kp DLLR       &kp PRCNT      &kp CARET    &kp AMPS     &kp RA(U)    &kp RA(N3)   &kp BSLH
                          &kp RA(A)      &kp RA(F)      &kp RA(S)      &kp RA(G)      &none          &none        &kp LS(RA(N4)) &kp RA(N5) &kp RA(N4)   &kp RA(O)
             &none        &kp LS(GRAVE)  &kp TILDE      &kp RA(C)      &none          &none          &none        &none        &none        &none        &none        &none
-                                                       &trans         &mo _ADJUST    &trans         &trans       &trans
+                                                       &trans         &trans         &mo _ADJUST    &trans       &trans       &trans
             >;
         };
 
@@ -88,7 +97,7 @@
                          &bootloader  &none       &none       &none       &none          &none       &kp F7       &kp F8       &kp F9       &kp F12
                          &none        &none       &none       &none       &none          &none       &kp F4       &kp F5       &kp F6       &kp F11
             &none        &none        &none       &none       &none       &none          &none       &kp F1       &kp F2       &kp F3       &kp F10      &bootloader
-                                                  &trans      &trans      &trans         &trans      &trans
+                                                  &trans      &trans      &trans         &trans      &trans       &trans   
             >;
         };
     };
