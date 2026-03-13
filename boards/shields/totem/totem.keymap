@@ -65,39 +65,39 @@
         // Layer 1: number (Numbers & Navigation)
         num_layer {
             bindings = <
-                         &kp N1      &kp N2      &kp N3      &kp N4       &kp N5         &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
-                         &trans      &trans      &trans      &trans       &kp STAR       &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
-            &trans       &trans      &trans      &trans      &trans       &kp SLASH      &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
-                                                 &trans      &trans       &trans         &trans      &trans       &trans
+                         &kp N1      &kp N2      &kp N3               &kp N4       &kp N5         &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
+                         &trans      &trans      &trans               &trans       &kp STAR       &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
+            &trans       &trans      &trans      &trans               &trans       &kp SLASH      &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
+                                                 &trans               &trans       &trans         &trans      &trans       &trans
             >;
         };
         
         nav_layer {
             bindings = <
-                         &trans       &trans     &trans      &trans     &trans        &trans         &trans     &trans      &trans      &trans
-                         &kp PSCRN    &trans     &caps_word  &kp ESC    &alt_slash    &kp LA(TAB)    &kp LEFT   &kp DOWN    &kp UP      &kp RIGHT
-            &trans       &kp LA(N1)   &kp LA(N2) &kp LA(N3)  &kp LA(N4) &kp INS       &kp LS(INS)    &kp HOME   &kp PG_DN   &kp PG_UP   &kp END    &trans
-                                                 &trans      &trans     &trans        &trans         &trans     &trans
+                         &trans       &trans     &trans      &trans     &trans        &trans         &trans  o    &trans      &trans      &trans
+                         &kp PSCRN    &trans     &caps_word  &kp ESC    &alt_slash    &kp LA(TAB)    &kp LEFT     &kp DOWN    &kp UP      &kp RIGHT
+            &trans       &kp LA(N1)   &kp LA(N2) &kp LA(N3)  &kp LA(N4) &kp INS       &kp LS(INS)    &kp HOME     &kp PG_DN   &kp PG_UP   &kp END    &trans
+                                                 &trans      &trans     &trans        &trans         &trans       &trans
             >;
         };
 
         // Layer 2: symbol (Symbols & Special Characters)
         symbol_layer {
             bindings = <
-                         &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT     &kp CARET   &kp AMPS   &kp STAR   &kp GRAVE   &kp TILDE
-                         &trans     &kp LBRC   &kp LBKT   &kp LPAR   &alt_slash    &trans      &kp SQT    &kp COLON  &kp SEMI    &kp DQT
-                 &trans  &trans     &kp RBRC   &kp RBKT   &kp RPAR   &trans        &trans      &kp UNDER  &kp PIPE   &kp BSLH    &kp QMARK   &trans
-                                               &trans     &trans        &trans      &trans
+                         &kp EXCL     &kp AT     &kp HASH   &kp DLLR   &kp PRCNT     &kp CARET   &kp AMPS   &kp STAR   &kp GRAVE   &kp TILDE
+                         &trans       &kp LBRC   &kp LBKT   &kp LPAR   &alt_slash    &trans      &kp SQT    &kp COLON  &kp SEMI    &kp DQT
+                 &trans  &trans       &kp RBRC   &kp RBKT   &kp RPAR   &trans        &trans      &kp UNDER  &kp PIPE   &kp BSLH    &kp QMARK   &trans
+                                                 &trans     &trans     &trans        &trans      &trans     &trans
             >;
         };
 
         // Layer 3: functions (Functions, System)
         fun_layer {
             bindings = <
-             &kp F1    &kp F2    &kp F3    &kp F4    &trans        &bt BT_SEL 0        &bt BT_SEL 1     &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-             &kp F5    &kp F6    &kp F7    &kp F8    &alt_slash    &bt BT_CLR          &trans           &trans        &trans        &bootloader
-     &trans  &kp F9    &kp F10   &kp F11   &kp F12   &trans        &kp LC(F)           &kp LC(EQUAL)    &kp LC(C)     &kp LC(V)     &kp LC(X)    &trans
-                                                     &trans        &trans              &trans           &trans
+                          &kp F1      &kp F2      &kp F3    &kp F4    &trans        &bt BT_SEL 0 &bt BT_SEL 1     &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+                          &kp F5      &kp F6      &kp F7    &kp F8    &alt_slash    &bt BT_CLR   &trans           &trans        &trans        &bootloader
+                  &trans  &kp F9      &kp F10     &kp F11   &kp F12   &trans        &kp LC(F)    &kp LC(EQUAL)    &kp LC(C)     &kp LC(V)     &kp LC(X)    &trans
+                                                        &trans    &trans        &trans              &trans           &trans        &trans
 
             >;
         };
