@@ -32,7 +32,6 @@ manifest:
     - name: totem-zmk-module
       remote: lhonda
       revision: main
-      path: config
       
   self:
     path: config   
