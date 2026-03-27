@@ -29,7 +29,7 @@ manifest:
     - name: forager-zmk-module
       remote: carrefinho
       revision: main
-    - name: totem-zmk-module
+    - name: unified-zmk-config-template
       remote: lhonda
       revision: main
       
