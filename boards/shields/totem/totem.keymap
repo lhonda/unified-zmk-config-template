@@ -58,7 +58,7 @@
                          &kp Q       &kp W       &kp F                &kp P                    &kp B                &kp J       &kp L        &kp U        &kp Y        &kp SEMI
                          &hm LGUI A  &hm LALT R  &hm LCTRL S          &hm LSHFT T              &kp G                &kp M       &hm RSHFT N  &hm LCTRL E  &hm LALT I   &hm LGUI O
       &kp PRINTSCREEN    &kp Z       &kp X       &kp C                &kp D                    &kp V                &kp K       &kp H        &kp COMMA    &kp DOT      &kp SLASH    &caps_word
-                                     &K_COPY     &lt_long _NUM DEL    &lt_long _NAV  SPACE     &lt_long _SYMBOL RET &lt_long _FUN TAB        &K_PASTE
+                                     &kp K_COPY  &lt_long _NUM DEL    &lt_long _NAV  SPACE     &lt_long _SYMBOL RET &lt_long _FUN TAB        &kp K_PASTE
             >;
         };
 
