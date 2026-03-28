@@ -65,16 +65,16 @@
         // Layer 1: number (Numbers & Navigation)
         num_layer {
             bindings = <
-                         &kp N1      &kp N2      &kp N3               &kp N4       &kp N5         &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
-                         &trans      &trans      &trans               &trans       &kp STAR       &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
-            &trans       &trans      &trans      &trans               &trans       &kp SLASH      &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
-                                                 &trans               &trans       &trans         &trans      &trans       &trans
+                         &kp N1      &kp N2      &kp N3               &kp N4                   &kp N5               &kp N6      &kp N7       &kp N8       &kp N9       &kp N0
+                         &trans      &trans      &trans               &trans                   &kp STAR             &kl PLUS    &kp N4       &kp N5       &kp N6       &kp EQUAL
+            &trans       &trans      &trans      &trans               &trans                   &kp SLASH            &kp MINUS   &kp N1       &kp N2       &kp N3       &trans     &trans
+                                                 &trans               &trans                   &trans               &trans      &trans       &trans
             >;
         };
         
         nav_layer {
             bindings = <
-                         &trans       &trans     &trans      &trans     &trans        &trans         &trans  o    &trans      &trans      &trans
+                         &trans       &trans     &trans      &trans     &trans        &trans         &trans       &trans      &trans      &trans
                          &kp PSCRN    &trans     &caps_word  &kp ESC    &alt_slash    &kp LA(TAB)    &kp LEFT     &kp DOWN    &kp UP      &kp RIGHT
             &trans       &kp LA(N1)   &kp LA(N2) &kp LA(N3)  &kp LA(N4) &kp INS       &kp LS(INS)    &kp HOME     &kp PG_DN   &kp PG_UP   &kp END    &trans
                                                  &trans      &trans     &trans        &trans         &trans       &trans
