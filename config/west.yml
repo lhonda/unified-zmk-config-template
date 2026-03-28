@@ -19,7 +19,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: carrefinho
       url-base: https://github.com/carrefinho
-
+    - name: lhonda
+      url-base: https://github.com/lhonda
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -28,7 +29,10 @@ manifest:
     - name: forager-zmk-module
       remote: carrefinho
       revision: main
-
+    - name: unified-zmk-config-template
+      remote: lhonda
+      revision: main
+      
       
   self:
     path: config   
