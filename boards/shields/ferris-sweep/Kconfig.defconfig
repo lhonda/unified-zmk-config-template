@@ -1,0 +1,9 @@
+if SHIELD_FERRIS_SWEEP_LEFT || SHIELD_FERRIS_SWEEP_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "Sweep"
+
+config ZMK_SPLIT
+    default y
+
+endif
