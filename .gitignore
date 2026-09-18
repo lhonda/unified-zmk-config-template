@@ -1,2 +1,7 @@
-
+zephyr
 .zmk/
+zmk
+optional
+modules
+build
+.west

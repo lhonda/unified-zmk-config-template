@@ -1,11 +1,11 @@
 include:
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840
     shield: cygnus_left
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840
     shield: cygnus_right
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840
     shield: scotto63
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble/zmk
     shield: totem_left
-  - board: seeeduino_xiao_ble
+  - board: xiao_ble//zmk
     shield: totem_right
