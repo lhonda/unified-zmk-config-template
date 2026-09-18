@@ -5,7 +5,7 @@ include:
     shield: cygnus_right
   - board: nice_nano/nrf52840
     shield: scotto63
-  - board: xiao_ble/zmk
+  - board: xiao_ble/nrf52840
     shield: totem_left
-  - board: xiao_ble//zmk
+  - board: xiao_ble/nrf52840
     shield: totem_right
