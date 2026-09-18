@@ -9,3 +9,7 @@ include:
     shield: totem_left
   - board: xiao_ble//zmk
     shield: totem_right
+  - board: xiao_ble//zmk
+    shield: forager_left
+  - board: xiao_ble//zmk
+    shield: forager_right
