@@ -1,5 +1,9 @@
 include:
   - board: nice_nano//zmk
+    shield: ferris-sweep_left
+  - board: nice_nano//zmk
+    shield: ferris-sweep_right
+  - board: nice_nano//zmk
     shield: cygnus_left
   - board: nice_nano//zmk
     shield: cygnus_right
