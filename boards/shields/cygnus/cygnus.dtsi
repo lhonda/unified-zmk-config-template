@@ -4,29 +4,13 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &layout_cygnus_34;
+        zmk,physical-layout = &physical_layout0;
     };
 
     // Matrix definition: 4 Rows (3 finger rows + 1 thumb row) x 5 Columns
-    kscan0: kscan {
+    kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
-        diode-direction = "col2row";
-
-        row-gpios
-            = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 0 (Top)
-            , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 1 (Mid)
-            , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 2 (Bot)
-            , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Row 3 (Thumbs)
-            ;
-
-        col-gpios
-            = <&pro_micro 14 GPIO_ACTIVE_HIGH>  // Col 0 (Outer)
-            , <&pro_micro 15 GPIO_ACTIVE_HIGH>  // Col 1 (Pinky)
-            , <&pro_micro 18 GPIO_ACTIVE_HIGH>  // Col 2 (Ring)
-            , <&pro_micro 19 GPIO_ACTIVE_HIGH>  // Col 3 (Middle)
-            , <&pro_micro 20 GPIO_ACTIVE_HIGH>  // Col 4 (Index)
-            ;
     };
 
     // Matrix transform for 34 keys (17 keys per half: 3x5 + 2 thumbs)
