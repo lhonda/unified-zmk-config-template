@@ -1,4 +1,0 @@
-yaml
-include:
-  - board: nice_nano
-    shield: forager
